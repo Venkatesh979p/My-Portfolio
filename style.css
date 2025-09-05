@@ -139,13 +139,13 @@ section h2 {
 
 /* Overlay text container */
 .project-details .project-text {
-  position: absolute;
+  position: relative;
   top: 0; left: 0;
   width: 100%; height: 100%;
   padding: 15px;
-  background: rgba(0,0,0,0.55); /* overlay for readability */
+  background: rgba(0,0,0,0.7); /* overlay for readability */
   border-radius: 10px;
-  overflow-y: auto; /* scroll if content too long */
+  overflow-y: visible; /* scroll if content too long */
 }
 
 .project-details h4 {
@@ -208,3 +208,4 @@ footer { text-align:center; padding:1.5rem; background:rgba(61, 57, 57, 0.9); co
   transform: scale(1.2);
   filter: brightness(1.5);
 }
+
