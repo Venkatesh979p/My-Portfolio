@@ -252,64 +252,108 @@ Machine Learning Engineer / AI Engineer to apply technical skills and contribute
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Car Gallery Toggle
-    const btn = document.getElementById('showCarsBtn');
-    const gallery = document.getElementById('carGallery');
+ <script>
+/* ================= CAR GALLERY ================= */
+
+const btn = document.getElementById("showCarsBtn");
+const gallery = document.getElementById("carGallery");
+
+gallery.style.display = "none";
+
+btn.addEventListener("click", function () {
+  if (gallery.style.display === "none") {
+    gallery.style.display = "flex";
+    btn.textContent = "Hide Cars";
+  } else {
     gallery.style.display = "none";
-    btn.addEventListener('click', () => {
-      if (gallery.style.display === "none") {
-        gallery.style.display = "flex";
-        btn.textContent = "Hide Cars";
-      } else {
-        gallery.style.display = "none";
-        btn.textContent = "Cars";
-      }
+    btn.textContent = "View Cars";
+  }
+});
+
+
+/* ================= HAMBURGER MENU ================= */
+
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navlinks");
+
+hamburger.addEventListener("click", function () {
+  navLinks.classList.toggle("active");
+});
+
+
+/* ================= SMOOTH SCROLL ================= */
+
+document.querySelectorAll("nav a").forEach(function (anchor) {
+
+  anchor.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    document.querySelector(
+      this.getAttribute("href")
+    ).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
 
-    // Hamburger Menu
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navlinks');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+    navLinks.classList.remove("active");
 
-    // Smooth scroll
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'});
-        navLinks.classList.remove('active');
-      });
-    });
+  });
 
-    // Toggle project details
-    document.querySelectorAll('.view-project-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const details = button.previousElementSibling;
-        if(details.style.display === 'none') {
-          details.style.display = 'block';
-          button.textContent = "Hide Project";
-        } else {
-          details.style.display = 'none';
-          button.textContent = "View Project";
-        }
-      });
-    });
+});
 
-    // Typing effect
-    const text = "I am Venkatesh Pugaku, Web Developer";
-    const typingElement = document.getElementById("typing");
-    let index = 0;
 
-    function typeLetter() {
-      if(index < text.length){
-        typingElement.textContent += text.charAt(index);
-        index++;
-        setTimeout(typeLetter, 100);
-      }
+/* ================= PROJECT ================= */
+
+document.querySelectorAll(".view-project-btn").forEach(function (button) {
+
+  button.addEventListener("click", function () {
+
+    const details = button.previousElementSibling;
+
+    if (details.style.display === "none" ||
+        details.style.display === "") {
+
+      details.style.display = "block";
+      button.textContent = "Hide Project";
+
+    } else {
+
+      details.style.display = "none";
+      button.textContent = "View Project";
+
     }
 
-    window.addEventListener('load', typeLetter);
-/* ================= MATERIALS ================= */
+  });
+
+});
+
+
+/* ================= TYPING EFFECT ================= */
+
+const text = "I am Venkatesh Pugaku, Web Developer";
+const typingElement = document.getElementById("typing");
+
+let index = 0;
+
+function typeLetter() {
+
+  if (index < text.length) {
+
+    typingElement.textContent += text.charAt(index);
+
+    index++;
+
+    setTimeout(typeLetter, 100);
+
+  }
+
+}
+
+window.addEventListener("load", typeLetter);
+
+
+/* ================= MATERIAL DATA ================= */
 
 const materialData = {
 
@@ -333,7 +377,6 @@ const materialData = {
       }
     ]
   },
-
 
   thermal: {
     name: "Thermal Engineering",
@@ -361,7 +404,6 @@ const materialData = {
     ]
   },
 
-
   manufacturing: {
     name: "Manufacturing",
     topics: [
@@ -382,7 +424,6 @@ const materialData = {
       }
     ]
   },
-
 
   python: {
     name: "Python",
@@ -413,27 +454,23 @@ const materialData = {
 };
 
 
-/* SHOW MATERIALS */
+/* ================= VIEW MATERIALS ================= */
 
-const matBtn =
-  document.getElementById("showMaterialsBtn");
+const matBtn = document.getElementById("showMaterialsBtn");
+const matList = document.getElementById("materialsList");
 
-const matList =
-  document.getElementById("materialsList");
+matList.style.display = "none";
 
-matBtn.addEventListener("click", function() {
+matBtn.addEventListener("click", function () {
 
-  if (matList.style.display === "none" ||
-      matList.style.display === "") {
+  if (matList.style.display === "none") {
 
     matList.style.display = "block";
-
     matBtn.textContent = "Hide Materials";
 
   } else {
 
     matList.style.display = "none";
-
     matBtn.textContent = "View Materials";
 
   }
@@ -441,20 +478,19 @@ matBtn.addEventListener("click", function() {
 });
 
 
-/* FORM SUBMIT */
+/* ================= MATERIAL FORM ================= */
 
-const form =
-  document.getElementById("materialForm");
+const form = document.getElementById("materialForm");
 
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", function (e) {
 
   e.preventDefault();
 
   const name =
-    document.getElementById("name").value;
+    document.getElementById("name").value.trim();
 
   const email =
-    document.getElementById("email").value;
+    document.getElementById("email").value.trim();
 
 
   /* SAVE TO GOOGLE FORM */
@@ -464,15 +500,15 @@ form.addEventListener("submit", function(e) {
     {
       method: "POST",
       mode: "no-cors",
-
       headers: {
         "Content-Type":
           "application/x-www-form-urlencoded"
       },
-
       body:
-        `entry.1120810712=${encodeURIComponent(name)}` +
-        `&entry.1358448956=${encodeURIComponent(email)}`
+        "entry.1120810712=" +
+        encodeURIComponent(name) +
+        "&entry.1358448956=" +
+        encodeURIComponent(email)
     }
   );
 
@@ -487,18 +523,16 @@ form.addEventListener("submit", function(e) {
   document.getElementById("subjectsPage")
     .style.display = "block";
 
-
   alert("Details saved & materials unlocked ✅");
 
 });
 
 
-/* OPEN SUBJECT */
+/* ================= OPEN SUBJECT ================= */
 
 function openSubject(subjectKey) {
 
-  const subject =
-    materialData[subjectKey];
+  const subject = materialData[subjectKey];
 
   if (!subject) return;
 
@@ -524,18 +558,18 @@ function openSubject(subjectKey) {
 }
 
 
-/* DISPLAY TOPICS */
+/* ================= DISPLAY TOPICS ================= */
 
 function displayTopics(topics) {
 
   const container =
     document.getElementById("topicsContainer");
 
-  container.innerHTML = "";
-
-
   const noResults =
     document.getElementById("noResults");
+
+
+  container.innerHTML = "";
 
 
   if (topics.length === 0) {
@@ -550,7 +584,7 @@ function displayTopics(topics) {
   noResults.style.display = "none";
 
 
-  topics.forEach(function(topic) {
+  topics.forEach(function (topic) {
 
     const div =
       document.createElement("div");
@@ -587,7 +621,7 @@ function displayTopics(topics) {
 }
 
 
-/* SEARCH TOPICS */
+/* ================= SEARCH TOPICS ================= */
 
 function searchTopics() {
 
@@ -613,8 +647,10 @@ function searchTopics() {
         materialData[key].name
       )
     ) {
+
       subjectKey = key;
       break;
+
     }
 
   }
@@ -628,9 +664,10 @@ function searchTopics() {
 
 
   const filtered =
-    topics.filter(function(topic) {
+    topics.filter(function (topic) {
 
       return (
+
         topic.title
           .toLowerCase()
           .includes(search)
@@ -640,6 +677,7 @@ function searchTopics() {
         topic.description
           .toLowerCase()
           .includes(search)
+
       );
 
     });
@@ -650,7 +688,7 @@ function searchTopics() {
 }
 
 
-/* BACK TO SUBJECTS */
+/* ================= BACK TO SUBJECTS ================= */
 
 function backToSubjects() {
 
@@ -668,18 +706,19 @@ function backToSubjects() {
 }
 
 
-/* VIEW TOPIC */
+/* ================= VIEW TOPIC ================= */
 
 function viewTopic(topicName) {
 
   alert(
-    "You selected: " + topicName +
-    "\n\nYou can add complete lesson content here."
+    "You selected: " +
+    topicName +
+    "\n\nComplete lesson content can be added here."
   );
 
 }
-});
-  </script>
+
+</script>
 
 </body>
 </html>
