@@ -309,42 +309,375 @@ Machine Learning Engineer / AI Engineer to apply technical skills and contribute
     }
 
     window.addEventListener('load', typeLetter);
-// Materials toggle
-const matBtn = document.getElementById('showMaterialsBtn');
-const matList = document.getElementById('materialsList');
+/* ================= MATERIALS ================= */
 
-matBtn.addEventListener('click', () => {
-  if (matList.style.display === "none" || matList.style.display === "") {
-    matList.style.display = "block";
-  } else {
-    matList.style.display = "none";
+const materialData = {
+
+  bme: {
+    name: "BME",
+    topics: [
+      {
+        title: "Lesson 1",
+        description: "Basic Mechanical Engineering - Lesson 1",
+        pdf: "pdfsbme_lesson1.pdf"
+      },
+      {
+        title: "Lesson 2",
+        description: "Basic Mechanical Engineering - Lesson 2",
+        pdf: "UNIT 2.pdf"
+      },
+      {
+        title: "Lesson 3",
+        description: "Basic Mechanical Engineering - Lesson 3",
+        pdf: "unit-3.pdf"
+      }
+    ]
+  },
+
+
+  thermal: {
+    name: "Thermal Engineering",
+    topics: [
+      {
+        title: "Boilers",
+        description: "Boiler definition, types and working",
+        pdf: "boilers.pdf"
+      },
+      {
+        title: "Otto Cycle",
+        description: "Otto cycle and PV diagram",
+        pdf: "otto-cycle.pdf"
+      },
+      {
+        title: "Diesel Cycle",
+        description: "Diesel cycle and PV diagram",
+        pdf: "diesel-cycle.pdf"
+      },
+      {
+        title: "Refrigeration",
+        description: "Refrigeration systems and cycles",
+        pdf: "refrigeration.pdf"
+      }
+    ]
+  },
+
+
+  manufacturing: {
+    name: "Manufacturing",
+    topics: [
+      {
+        title: "Lathe Machine",
+        description: "Lathe machine construction and operations",
+        pdf: "lathe.pdf"
+      },
+      {
+        title: "Casting",
+        description: "Casting process and moulding",
+        pdf: "casting.pdf"
+      },
+      {
+        title: "CNC Machine",
+        description: "Computer Numerical Control machine",
+        pdf: "cnc.pdf"
+      }
+    ]
+  },
+
+
+  python: {
+    name: "Python",
+    topics: [
+      {
+        title: "Python Introduction",
+        description: "Introduction to Python programming",
+        pdf: "python-introduction.pdf"
+      },
+      {
+        title: "Variables and Data Types",
+        description: "Variables and Python data types",
+        pdf: "python-variables.pdf"
+      },
+      {
+        title: "Loops",
+        description: "For loop and while loop",
+        pdf: "python-loops.pdf"
+      },
+      {
+        title: "Functions",
+        description: "Python functions and arguments",
+        pdf: "python-functions.pdf"
+      }
+    ]
   }
-});
-// Form submit
-const form = document.getElementById('materialForm');
-const pdfSection = document.getElementById('pdfSection');
 
-form.addEventListener('submit', function(e) {
+};
+
+
+/* SHOW MATERIALS */
+
+const matBtn =
+  document.getElementById("showMaterialsBtn");
+
+const matList =
+  document.getElementById("materialsList");
+
+matBtn.addEventListener("click", function() {
+
+  if (matList.style.display === "none" ||
+      matList.style.display === "") {
+
+    matList.style.display = "block";
+
+    matBtn.textContent = "Hide Materials";
+
+  } else {
+
+    matList.style.display = "none";
+
+    matBtn.textContent = "View Materials";
+
+  }
+
+});
+
+
+/* FORM SUBMIT */
+
+const form =
+  document.getElementById("materialForm");
+
+form.addEventListener("submit", function(e) {
+
   e.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
+  const name =
+    document.getElementById("name").value;
 
-  // 🔥 Data Google Form ki pampadam (→ Sheet lo save avuthundi)
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSc67zYJJSlpBGBoCo6nGSgyeaEor0MENHcGqRf7ZVYc_r2ZUw/formResponse?", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `entry.1120810712=${name}&entry.1358448956=${email}`
-  });
+  const email =
+    document.getElementById("email").value;
 
-  // PDF show
-  pdfSection.style.display = "block";
+
+  /* SAVE TO GOOGLE FORM */
+
+  fetch(
+    "https://docs.google.com/forms/d/e/1FAIpQLSc67zYJJSlpBGBoCo6nGSgyeaEor0MENHcGqRf7ZVYc_r2ZUw/formResponse?",
+    {
+      method: "POST",
+      mode: "no-cors",
+
+      headers: {
+        "Content-Type":
+          "application/x-www-form-urlencoded"
+      },
+
+      body:
+        `entry.1120810712=${encodeURIComponent(name)}` +
+        `&entry.1358448956=${encodeURIComponent(email)}`
+    }
+  );
+
+
+  /* HIDE FORM */
+
   form.style.display = "none";
 
+
+  /* SHOW SUBJECTS */
+
+  document.getElementById("subjectsPage")
+    .style.display = "block";
+
+
   alert("Details saved & materials unlocked ✅");
+
+});
+
+
+/* OPEN SUBJECT */
+
+function openSubject(subjectKey) {
+
+  const subject =
+    materialData[subjectKey];
+
+  if (!subject) return;
+
+
+  document.getElementById("subjectsPage")
+    .style.display = "none";
+
+
+  document.getElementById("topicsPage")
+    .style.display = "block";
+
+
+  document.getElementById("selectedSubject")
+    .textContent = "📚 " + subject.name;
+
+
+  document.getElementById("topicSearch")
+    .value = "";
+
+
+  displayTopics(subject.topics);
+
+}
+
+
+/* DISPLAY TOPICS */
+
+function displayTopics(topics) {
+
+  const container =
+    document.getElementById("topicsContainer");
+
+  container.innerHTML = "";
+
+
+  const noResults =
+    document.getElementById("noResults");
+
+
+  if (topics.length === 0) {
+
+    noResults.style.display = "block";
+
+    return;
+
+  }
+
+
+  noResults.style.display = "none";
+
+
+  topics.forEach(function(topic) {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "topic-card";
+
+
+    div.innerHTML = `
+
+      <h5>📘 ${topic.title}</h5>
+
+      <p>${topic.description}</p>
+
+      <button
+        class="topic-btn view-topic"
+        onclick="viewTopic('${topic.title}')">
+        👁 View
+      </button>
+
+      <a
+        href="${topic.pdf}"
+        target="_blank"
+        class="topic-btn download-topic">
+        📥 PDF
+      </a>
+
+    `;
+
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* SEARCH TOPICS */
+
+function searchTopics() {
+
+  const search =
+    document.getElementById("topicSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const subjectText =
+    document.getElementById("selectedSubject")
+      .textContent;
+
+
+  let subjectKey = null;
+
+
+  for (const key in materialData) {
+
+    if (
+      subjectText.includes(
+        materialData[key].name
+      )
+    ) {
+      subjectKey = key;
+      break;
+    }
+
+  }
+
+
+  if (!subjectKey) return;
+
+
+  const topics =
+    materialData[subjectKey].topics;
+
+
+  const filtered =
+    topics.filter(function(topic) {
+
+      return (
+        topic.title
+          .toLowerCase()
+          .includes(search)
+
+        ||
+
+        topic.description
+          .toLowerCase()
+          .includes(search)
+      );
+
+    });
+
+
+  displayTopics(filtered);
+
+}
+
+
+/* BACK TO SUBJECTS */
+
+function backToSubjects() {
+
+  document.getElementById("topicsPage")
+    .style.display = "none";
+
+
+  document.getElementById("subjectsPage")
+    .style.display = "block";
+
+
+  document.getElementById("topicSearch")
+    .value = "";
+
+}
+
+
+/* VIEW TOPIC */
+
+function viewTopic(topicName) {
+
+  alert(
+    "You selected: " + topicName +
+    "\n\nYou can add complete lesson content here."
+  );
+
+}
 });
   </script>
 
