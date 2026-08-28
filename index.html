@@ -94,46 +94,113 @@ Machine Learning Engineer / AI Engineer to apply technical skills and contribute
       </p>
     </div>
 
-    <!-- Materials -->
-    <div class="service-card">
-      <h3>Materials</h3>
-      <button id="showMaterialsBtn" class="button">View Materials</button>
+  <!-- Materials -->
+<div class="service-card">
 
-      <div class="materials-list" id="materialsList">
-        <form id="materialForm">
-          <input type="text" id="name" placeholder="Enter your name" required>
-          <input type="email" id="email" placeholder="Enter your email" required>
-          <button type="submit" class="button">Submit & View Materials</button>
-        </form>
-        
-        <!--subjects -->
-       <div id="pdfSection" style="display:none; margin-top:10px;">
+  <h3>Materials</h3>
 
-  <!-- BME -->
-  <div class="subject">
-    <h4 class="subject-title">BME</h4>
-    <ul class="lessons">
-      <li>
-        Lesson 1
-        <a href="pdfsbme_lesson1.pdf" target="_blank" class="view-btn">View</a>
-        <a href="pdfsbme_lesson1.pdf" download class="download-btn">Download</a>
-      </li>
+  <button id="showMaterialsBtn" class="button">
+    View Materials
+  </button>
 
-      <li>
-        Lesson 2 
-        <a href="UNIT 2.pdf" target="_blank" class="view-btn">View</a>
-        <a href="UNIT 2.pdf" download class="download-btn">Download</a>
-      </li>
+  <div class="materials-list" id="materialsList">
 
-      <li>
-        Lesson 3
-        <a href="unit-3.pdf" target="_blank" class="view-btn">View</a>
-        <a href="unit-3.pdf" download class="download-btn">Download</a>
-      </li>
-    </ul>
+    <!-- FORM -->
+    <form id="materialForm">
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your name"
+        required
+      >
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
+
+      <button type="submit" class="button">
+        Submit & View Materials
+      </button>
+
+    </form>
+
+
+    <!-- SUBJECTS PAGE -->
+    <div id="subjectsPage" style="display:none;">
+
+      <h4 class="materials-heading">
+        📚 Select Your Subject
+      </h4>
+
+      <div class="subjects-grid">
+
+        <div class="subject-card"
+             onclick="openSubject('bme')">
+          <span>⚙️</span>
+          <h4>BME</h4>
+          <p>Basic Mechanical Engineering</p>
+        </div>
+
+        <div class="subject-card"
+             onclick="openSubject('thermal')">
+          <span>🔥</span>
+          <h4>Thermal Engineering</h4>
+          <p>Thermal Engineering Topics</p>
+        </div>
+
+        <div class="subject-card"
+             onclick="openSubject('manufacturing')">
+          <span>🏭</span>
+          <h4>Manufacturing</h4>
+          <p>Manufacturing Technology</p>
+        </div>
+
+        <div class="subject-card"
+             onclick="openSubject('python')">
+          <span>🐍</span>
+          <h4>Python</h4>
+          <p>Python Programming</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TOPICS PAGE -->
+    <div id="topicsPage" style="display:none;">
+
+      <button
+        type="button"
+        class="back-btn"
+        onclick="backToSubjects()">
+        ← Back
+      </button>
+
+      <h4 id="selectedSubject"></h4>
+
+      <input
+        type="text"
+        id="topicSearch"
+        class="topic-search"
+        placeholder="🔍 Search Topic..."
+        onkeyup="searchTopics()"
+      >
+
+      <div id="topicsContainer"></div>
+
+      <p id="noResults">
+        ❌ No topic found.
+      </p>
+
+    </div>
+
   </div>
-</div>
-</div>
+
 </div>
     <!-- Travels -->
     <div class="service-card">
